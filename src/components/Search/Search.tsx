@@ -5,13 +5,14 @@ type Props = {
 
 const Search = ({ search, setSearch }: Props) => {
   return (
-    <div>
+    <div style={{ display: "flex", justifyContent: "center" }}>
       <input
         type="text"
         placeholder="Search..."
         onChange={(e) => setSearch(e.target.value)}
         value={search}
       />
+      <button onClick={() => setSearch("")}>X</button>
     </div>
   );
 };
