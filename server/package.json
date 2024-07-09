@@ -1,0 +1,32 @@
+{
+  "name": "test-package",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "dependencies": {
+    "@apollo/server": "^4.10.4",
+    "@graphql-tools/merge": "^9.0.4",
+    "@graphql-tools/schema": "^10.0.4",
+    "@types/node": "^20.14.10",
+    "graphql": "^16.9.0",
+    "graphql-tag": "^2.12.6"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "5.0.2",
+    "@graphql-codegen/introspection": "4.0.3",
+    "@graphql-codegen/typescript": "4.0.9",
+    "@graphql-codegen/typescript-document-nodes": "4.0.9",
+    "@graphql-codegen/typescript-resolvers": "4.2.1",
+    "@parcel/watcher": "^2.4.1",
+    "concurrently": "^8.2.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.5.3"
+  },
+  "scripts": {
+    "compile": "tsc",
+    "generate": "graphql-codegen",
+    "start": "yarn compile && node ./dist/index.js",
+    "dev": "concurrently \"yarn ts-node-dev --respawn --watch ./src/*.ts ./src/index.ts\" \"yarn generate --watch\""
+  },
+  "license": "MIT",
+  "private": true
+}
