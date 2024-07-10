@@ -7,6 +7,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string; }
@@ -14,6 +15,17 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  createSearchHistoryEntry: SearchHistory;
+};
+
+
+export type MutationCreateSearchHistoryEntryArgs = {
+  queryString: Scalars['String']['input'];
+  userId: Scalars['String']['input'];
 };
 
 export type Query = {
@@ -26,7 +38,7 @@ export type SearchHistory = {
   createdAt: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   queryString: Scalars['String']['output'];
-  updatedAt: Scalars['String']['output'];
+  userId: Scalars['String']['output'];
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -103,6 +115,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   SearchHistory: ResolverTypeWrapper<SearchHistory>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
@@ -112,9 +125,14 @@ export type ResolversTypes = ResolversObject<{
 export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean']['output'];
   ID: Scalars['ID']['output'];
+  Mutation: {};
   Query: {};
   SearchHistory: SearchHistory;
   String: Scalars['String']['output'];
+}>;
+
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  createSearchHistoryEntry?: Resolver<ResolversTypes['SearchHistory'], ParentType, ContextType, RequireFields<MutationCreateSearchHistoryEntryArgs, 'queryString' | 'userId'>>;
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
@@ -125,11 +143,12 @@ export type SearchHistoryResolvers<ContextType = any, ParentType extends Resolve
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   queryString?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  updatedAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  userId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type Resolvers<ContextType = any> = ResolversObject<{
+  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   SearchHistory?: SearchHistoryResolvers<ContextType>;
 }>;

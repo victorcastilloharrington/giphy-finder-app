@@ -5,10 +5,14 @@ type SearchHistory {
   id: ID!
   queryString: String!
   createdAt: String!
-  updatedAt: String!
+  userId: String!
 }
 
 type Query {
   searchHistoryList: [SearchHistory!]
+}
+
+type Mutation {
+  createSearchHistoryEntry(queryString: String!, userId: String!): SearchHistory!
 }
 `);
