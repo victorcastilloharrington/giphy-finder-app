@@ -10,7 +10,6 @@ function App() {
   const [search, setSearch] = useState<string>("");
   const [page, setPage] = useState<number>(1);
   const pageOffset = useMemo(() => (page > 1 ? page * GIF_COUNT : 0), [page]);
-  console.log("pageOffset", pageOffset);
   const { data, error, loading } = useSearch({ search, pageOffset });
 
   return (
