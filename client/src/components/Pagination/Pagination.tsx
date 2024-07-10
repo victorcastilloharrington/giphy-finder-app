@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { GIF_COUNT } from "../../constants";
 import { range } from "../../utils/range";
+import PageItem from "./PageItem";
 
 type Props = {
   page: number;
@@ -9,26 +10,40 @@ type Props = {
 };
 
 const Pagination = ({ page, setPage, totalCount }: Props) => {
-  const totalPages = useMemo(
-    () => (totalCount > 0 ? Math.ceil(totalCount / GIF_COUNT) : 1),
+  const maxPages = useMemo(
+    () => (totalCount > 0 ? Math.min(totalCount / GIF_COUNT, 249) : null),
     [totalCount]
   );
-  const pages = useMemo(() => range(1, totalPages), [totalPages]);
+
+  const pagesSelection = useMemo(() => {
+    if (totalCount > 0 && maxPages) {
+      return range(Math.max(page - 10, 2), Math.min(page + 10, maxPages || 10));
+    } else {
+      return [];
+    }
+  }, [page, totalCount, maxPages]);
+
   return (
-    <div style={{ display: "flex", flexWrap: "wrap" }}>
-      {pages.map((p) => (
-        <div
-          key={p}
-          onClick={() => setPage(p)}
-          style={{
-            minWidth: 20,
-            color: "#000",
-            backgroundColor: page === p ? "#bbb" : "#fff",
-          }}
-        >
-          {p}
-        </div>
+    <div
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        gap: 5,
+      }}
+    >
+      <PageItem key={"firstPage"} page={page} setPage={setPage} index={1} />
+      {pagesSelection.map((p) => (
+        <PageItem key={p} page={page} setPage={setPage} index={p} />
       ))}
+      {maxPages && (
+        <PageItem
+          key={"lastPage"}
+          page={page}
+          setPage={setPage}
+          index={maxPages}
+        />
+      )}
     </div>
   );
 };
