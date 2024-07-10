@@ -13,7 +13,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n  query getSearchHistory {\n    searchHistoryList {\n      id\n      queryString\n      createdAt\n      userId\n    }\n  }\n": types.GetSearchHistoryDocument,
+    "\n  query getSearchHistory($userId: String!) {\n    searchHistoryList(userId: $userId) {\n      id\n      queryString\n      createdAt\n      userId\n    }\n  }\n": types.GetSearchHistoryDocument,
+    "\n  mutation createHistoryEntry($userId: String!, $queryString: String!) {\n    createSearchHistoryEntry(userId: $userId, queryString: $queryString) {\n      id\n      queryString\n      createdAt\n      userId\n    }\n  }\n": types.CreateHistoryEntryDocument,
 };
 
 /**
@@ -33,7 +34,11 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query getSearchHistory {\n    searchHistoryList {\n      id\n      queryString\n      createdAt\n      userId\n    }\n  }\n"): (typeof documents)["\n  query getSearchHistory {\n    searchHistoryList {\n      id\n      queryString\n      createdAt\n      userId\n    }\n  }\n"];
+export function graphql(source: "\n  query getSearchHistory($userId: String!) {\n    searchHistoryList(userId: $userId) {\n      id\n      queryString\n      createdAt\n      userId\n    }\n  }\n"): (typeof documents)["\n  query getSearchHistory($userId: String!) {\n    searchHistoryList(userId: $userId) {\n      id\n      queryString\n      createdAt\n      userId\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation createHistoryEntry($userId: String!, $queryString: String!) {\n    createSearchHistoryEntry(userId: $userId, queryString: $queryString) {\n      id\n      queryString\n      createdAt\n      userId\n    }\n  }\n"): (typeof documents)["\n  mutation createHistoryEntry($userId: String!, $queryString: String!) {\n    createSearchHistoryEntry(userId: $userId, queryString: $queryString) {\n      id\n      queryString\n      createdAt\n      userId\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

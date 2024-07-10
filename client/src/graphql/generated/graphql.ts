@@ -32,6 +32,11 @@ export type Query = {
   searchHistoryList?: Maybe<Array<SearchHistory>>;
 };
 
+
+export type QuerySearchHistoryListArgs = {
+  userId: Scalars['String']['input'];
+};
+
 export type SearchHistory = {
   __typename: 'SearchHistory';
   createdAt: Scalars['String']['output'];
@@ -40,10 +45,21 @@ export type SearchHistory = {
   userId: Scalars['String']['output'];
 };
 
-export type GetSearchHistoryQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetSearchHistoryQueryVariables = Exact<{
+  userId: Scalars['String']['input'];
+}>;
 
 
 export type GetSearchHistoryQuery = { __typename: 'Query', searchHistoryList?: Array<{ __typename: 'SearchHistory', id: string, queryString: string, createdAt: string, userId: string }> | null };
 
+export type CreateHistoryEntryMutationVariables = Exact<{
+  userId: Scalars['String']['input'];
+  queryString: Scalars['String']['input'];
+}>;
 
-export const GetSearchHistoryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getSearchHistory"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"searchHistoryList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"queryString"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}}]}}]}}]} as unknown as DocumentNode<GetSearchHistoryQuery, GetSearchHistoryQueryVariables>;
+
+export type CreateHistoryEntryMutation = { __typename: 'Mutation', createSearchHistoryEntry: { __typename: 'SearchHistory', id: string, queryString: string, createdAt: string, userId: string } };
+
+
+export const GetSearchHistoryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getSearchHistory"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"searchHistoryList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"userId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"queryString"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}}]}}]}}]} as unknown as DocumentNode<GetSearchHistoryQuery, GetSearchHistoryQueryVariables>;
+export const CreateHistoryEntryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createHistoryEntry"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"queryString"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createSearchHistoryEntry"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"userId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}},{"kind":"Argument","name":{"kind":"Name","value":"queryString"},"value":{"kind":"Variable","name":{"kind":"Name","value":"queryString"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"queryString"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}}]}}]}}]} as unknown as DocumentNode<CreateHistoryEntryMutation, CreateHistoryEntryMutationVariables>;

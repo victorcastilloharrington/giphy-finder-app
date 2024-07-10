@@ -12,7 +12,7 @@ datasource db {
 
 model SearchHistory {
   id    Int     @id @default(autoincrement())
-  userId  String @unique
+  userId  String
   queryString  String
   createdAt DateTime @default(now())
 }

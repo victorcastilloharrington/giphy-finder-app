@@ -33,6 +33,11 @@ export type Query = {
   searchHistoryList?: Maybe<Array<SearchHistory>>;
 };
 
+
+export type QuerySearchHistoryListArgs = {
+  userId: Scalars['String']['input'];
+};
+
 export type SearchHistory = {
   __typename?: 'SearchHistory';
   createdAt: Scalars['String']['output'];
@@ -136,7 +141,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  searchHistoryList?: Resolver<Maybe<Array<ResolversTypes['SearchHistory']>>, ParentType, ContextType>;
+  searchHistoryList?: Resolver<Maybe<Array<ResolversTypes['SearchHistory']>>, ParentType, ContextType, RequireFields<QuerySearchHistoryListArgs, 'userId'>>;
 }>;
 
 export type SearchHistoryResolvers<ContextType = any, ParentType extends ResolversParentTypes['SearchHistory'] = ResolversParentTypes['SearchHistory']> = ResolversObject<{

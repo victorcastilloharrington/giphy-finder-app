@@ -9,7 +9,7 @@ type SearchHistory {
 }
 
 type Query {
-  searchHistoryList: [SearchHistory!]
+  searchHistoryList(userId: String!): [SearchHistory!]
 }
 
 type Mutation {

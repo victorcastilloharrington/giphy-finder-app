@@ -1,8 +1,13 @@
 import { useQuery } from "@apollo/client";
 import { getSearchHistory } from "../graphql/queries/searchHistory";
+import useUserId from "../hooks/useUserId";
 
 const History = () => {
-  const { data, error, loading } = useQuery(getSearchHistory);
+  const userId = useUserId()!;
+  const { data, error, loading } = useQuery(getSearchHistory, {
+    variables: { userId },
+    fetchPolicy: "network-only",
+  });
   const isLoading = loading && !data;
 
   if (isLoading) {
