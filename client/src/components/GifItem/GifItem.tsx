@@ -12,7 +12,7 @@ const GifItem = ({ loading, data, error, search }: Props) => {
     <div>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
-      {data?.length === 0 && search && <div>No results found</div>}
+      {data?.length === 0 && search && !loading && <div>No results found</div>}
       {data?.length > 0 && (
         <div>
           {data?.map((item) => (

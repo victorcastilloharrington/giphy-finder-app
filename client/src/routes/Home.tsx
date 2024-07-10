@@ -4,12 +4,17 @@ import useSearch from "../hooks/useSearch";
 import Pagination from "../components/Pagination/Pagination";
 import GifItem from "../components/GifItem/GifItem";
 import { GIF_COUNT } from "../constants";
-
+import { useDebounce } from "../hooks/useDebounce";
 function Home() {
   const [search, setSearch] = useState<string>("");
   const [page, setPage] = useState<number>(1);
   const pageOffset = useMemo(() => (page > 1 ? page * GIF_COUNT : 0), [page]);
-  const { data, error, loading } = useSearch({ search, pageOffset });
+  const searchQuery = useDebounce(search, 500);
+
+  const { data, error, loading } = useSearch({
+    search: searchQuery,
+    pageOffset,
+  });
 
   return (
     <>
@@ -18,7 +23,7 @@ function Home() {
         loading={loading}
         data={data?.data}
         error={error}
-        search={search}
+        search={searchQuery}
       />
       <Pagination
         page={page}
