@@ -1,10 +1,14 @@
-import { useQuery } from "@apollo/client";
-import { getSearchHistory } from "../graphql/queries/searchHistory";
+import { useMutation, useQuery } from "@apollo/client";
+import {
+  clearHistory,
+  getSearchHistory,
+} from "../graphql/queries/searchHistory";
 import useUserId from "../hooks/useUserId";
 
 const History = () => {
   const userId = useUserId()!;
-  const { data, error, loading } = useQuery(getSearchHistory, {
+  const [onClearHistory] = useMutation(clearHistory);
+  const { data, error, loading, refetch } = useQuery(getSearchHistory, {
     variables: { userId },
     fetchPolicy: "network-only",
   });
@@ -16,6 +20,11 @@ const History = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
+
+  const handleClearHistory = async () => {
+    await onClearHistory({ variables: { userId } });
+    refetch();
+  };
   return (
     <div>
       <table className="table-auto border-1 border-gray-300 w-full">
@@ -34,6 +43,12 @@ const History = () => {
           ))}
         </tbody>
       </table>
+      <button
+        className="px-4 py-2 bg-red-500 text-white mt-4 rounded"
+        onClick={handleClearHistory}
+      >
+        Clear History
+      </button>
     </div>
   );
 };

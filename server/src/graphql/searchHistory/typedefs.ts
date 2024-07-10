@@ -14,5 +14,6 @@ type Query {
 
 type Mutation {
   createSearchHistoryEntry(queryString: String!, userId: String!): SearchHistory!
+  clearSearchHistory(userId: String!): Boolean!
 }
 `);

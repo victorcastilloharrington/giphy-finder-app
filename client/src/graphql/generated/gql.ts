@@ -15,6 +15,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 const documents = {
     "\n  query getSearchHistory($userId: String!) {\n    searchHistoryList(userId: $userId) {\n      id\n      queryString\n      createdAt\n      userId\n    }\n  }\n": types.GetSearchHistoryDocument,
     "\n  mutation createHistoryEntry($userId: String!, $queryString: String!) {\n    createSearchHistoryEntry(userId: $userId, queryString: $queryString) {\n      id\n      queryString\n      createdAt\n      userId\n    }\n  }\n": types.CreateHistoryEntryDocument,
+    "\n  mutation clearHistory($userId: String!) {\n    clearSearchHistory(userId: $userId)\n  }\n": types.ClearHistoryDocument,
 };
 
 /**
@@ -39,6 +40,10 @@ export function graphql(source: "\n  query getSearchHistory($userId: String!) {\
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation createHistoryEntry($userId: String!, $queryString: String!) {\n    createSearchHistoryEntry(userId: $userId, queryString: $queryString) {\n      id\n      queryString\n      createdAt\n      userId\n    }\n  }\n"): (typeof documents)["\n  mutation createHistoryEntry($userId: String!, $queryString: String!) {\n    createSearchHistoryEntry(userId: $userId, queryString: $queryString) {\n      id\n      queryString\n      createdAt\n      userId\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation clearHistory($userId: String!) {\n    clearSearchHistory(userId: $userId)\n  }\n"): (typeof documents)["\n  mutation clearHistory($userId: String!) {\n    clearSearchHistory(userId: $userId)\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

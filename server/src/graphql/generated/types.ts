@@ -19,7 +19,13 @@ export type Scalars = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  clearSearchHistory: Scalars['Boolean']['output'];
   createSearchHistoryEntry: SearchHistory;
+};
+
+
+export type MutationClearSearchHistoryArgs = {
+  userId: Scalars['String']['input'];
 };
 
 
@@ -137,6 +143,7 @@ export type ResolversParentTypes = ResolversObject<{
 }>;
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  clearSearchHistory?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationClearSearchHistoryArgs, 'userId'>>;
   createSearchHistoryEntry?: Resolver<ResolversTypes['SearchHistory'], ParentType, ContextType, RequireFields<MutationCreateSearchHistoryEntryArgs, 'queryString' | 'userId'>>;
 }>;
 

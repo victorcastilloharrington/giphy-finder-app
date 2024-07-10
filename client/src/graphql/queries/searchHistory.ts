@@ -21,3 +21,9 @@ export const createHistoryEntry = graphql(`
     }
   }
 `);
+
+export const clearHistory = graphql(`
+  mutation clearHistory($userId: String!) {
+    clearSearchHistory(userId: $userId)
+  }
+`);
