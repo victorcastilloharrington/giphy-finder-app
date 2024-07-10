@@ -1,12 +1,11 @@
 import { useMemo, useState } from "react";
-import "./App.css";
-import Search from "./components/Search/Search";
-import useSearch from "./hooks/useSearch";
-import Pagination from "./components/Pagination/Pagination";
-import GifItem from "./components/GifItem/GifItem";
-import { GIF_COUNT } from "./constants";
+import Search from "../components/Search/Search";
+import useSearch from "../hooks/useSearch";
+import Pagination from "../components/Pagination/Pagination";
+import GifItem from "../components/GifItem/GifItem";
+import { GIF_COUNT } from "../constants";
 
-function App() {
+function Home() {
   const [search, setSearch] = useState<string>("");
   const [page, setPage] = useState<number>(1);
   const pageOffset = useMemo(() => (page > 1 ? page * GIF_COUNT : 0), [page]);
@@ -30,4 +29,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
