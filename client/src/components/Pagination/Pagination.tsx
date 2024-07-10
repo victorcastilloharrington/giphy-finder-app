@@ -17,33 +17,28 @@ const Pagination = ({ page, setPage, totalCount }: Props) => {
 
   const pagesSelection = useMemo(() => {
     if (totalCount > 0 && maxPages) {
-      return range(Math.max(page - 10, 2), Math.min(page + 10, maxPages || 10));
+      return range(Math.max(page - 1, 2), Math.min(page + 10, maxPages || 10));
     } else {
       return [];
     }
   }, [page, totalCount, maxPages]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexWrap: "wrap",
-        justifyContent: "center",
-        gap: 5,
-      }}
-    >
-      <PageItem key={"firstPage"} page={page} setPage={setPage} index={1} />
+    <div className="flex justify-center w-full gap-1 mt-6 mb-8">
+      {pagesSelection?.length ? (
+        <PageItem key={"firstPage"} page={page} setPage={setPage} index={1} />
+      ) : null}
       {pagesSelection.map((p) => (
         <PageItem key={p} page={page} setPage={setPage} index={p} />
       ))}
-      {maxPages && (
+      {maxPages ? (
         <PageItem
           key={"lastPage"}
           page={page}
           setPage={setPage}
           index={maxPages}
         />
-      )}
+      ) : null}
     </div>
   );
 };

@@ -5,25 +5,28 @@ const Layout = ({ children }: PropsWithChildren) => {
   const location = useLocation();
   return (
     <div className="w-full">
-      <div className="flex  gap-4 p-4 justify-end items-center bg-slate-100">
-        <Link
-          to="/"
-          className={`block text-lg ${
-            location.pathname === "/" ? "text-blue-900" : "text-slate-500"
-          }`}
-        >
-          Home
-        </Link>
-        <Link
-          to="/history"
-          className={`block  text-lg ${
-            location.pathname === "/history"
-              ? "text-blue-900"
-              : "text-slate-500"
-          }`}
-        >
-          History
-        </Link>
+      <div className="flex font-extrabold gap-4 py-4  px-8 justify-between items-center bg-yellow-400">
+        <h1 className="text-2xl ">Giphy Finder</h1>
+        <div className="flex gap-6 items-center">
+          <Link
+            to="/"
+            className={`block text-lg font-medium ${
+              location.pathname === "/" ? "text-gray-800" : "text-gray-600"
+            }`}
+          >
+            Home
+          </Link>
+          <Link
+            to="/history"
+            className={`block  text-lg font-medium ${
+              location.pathname === "/history"
+                ? "text-gray-800"
+                : "text-gray-600"
+            }`}
+          >
+            History
+          </Link>
+        </div>
       </div>
       <div className="px-4 py-8">{children}</div>
     </div>

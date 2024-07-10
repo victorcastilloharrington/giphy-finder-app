@@ -5,6 +5,7 @@ import Pagination from "../components/Pagination/Pagination";
 import GifItem from "../components/GifItem/GifItem";
 import { GIF_COUNT } from "../constants";
 import { useDebounce } from "../hooks/useDebounce";
+
 function Home() {
   const [search, setSearch] = useState<string>("");
   const [page, setPage] = useState<number>(1);
